@@ -32,10 +32,10 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
     }
 
     @Override
-    public CurrencyExchange findBySymbolAndDate(Exchange exchange, LocalDate date) {
-        return currencyExchangeRepository.findBySymbolAndDate(exchange.getSymbol(), date)
+    public CurrencyExchange findBySymbolAndExchangeDate(Exchange exchange, LocalDate exchangeDate) {
+        return currencyExchangeRepository.findBySymbolAndDate(exchange.getSymbol(), exchangeDate)
                 .orElseThrow(() -> new NoDataFoundException(
-                        String.format("Currency exchange of %s on %s not found", exchange.getSymbol(), date)));
+                        String.format("Currency exchange of %s on %s not found", exchange.getSymbol(), exchangeDate)));
     }
 
     @Override
@@ -46,6 +46,6 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
     }
 
     private void enrichCurrencyExchange(CurrencyExchange currencyExchange) {
-        currencyExchange.setDate(LocalDate.now());
+        currencyExchange.setExchangeDate(LocalDate.now());
     }
 }
