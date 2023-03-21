@@ -11,7 +11,7 @@ public interface CurrencyExchangeService {
 
     void update(CurrencyExchange updatedCurrencyExchange);
 
-    CurrencyExchange findBySymbolAndDateTime(Exchange exchange, LocalDate dateTime);
+    CurrencyExchange findBySymbolAndExchangeDate(Exchange exchange, LocalDate exchangeDate);
 
     CurrencyExchange findLatestBySymbol(Exchange exchange);
 }

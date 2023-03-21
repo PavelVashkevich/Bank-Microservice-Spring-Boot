@@ -26,7 +26,7 @@ databaseChangeLog:
                     nullable: false
                     unique: false
               - column:
-                  name: date
+                  name: exchange_date
                   type: date
                   constraints:
                     nullable: false

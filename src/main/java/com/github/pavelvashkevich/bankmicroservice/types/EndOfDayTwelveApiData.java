@@ -1,23 +1,21 @@
-package com.github.pavelvashkevich.bankmicroservice.dto;
+package com.github.pavelvashkevich.bankmicroservice.types;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
-@ToString
-public class EndOfDayDTO {
+public class EndOfDayTwelveApiData {
     private String symbol;
     private String exchange;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate datetime;
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
-    private Instant timestamp;
+    private ZonedDateTime timestamp;
     private BigDecimal close;
 }

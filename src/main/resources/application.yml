@@ -17,11 +17,7 @@ spring:
         # for debug purpose only
         format_sql: true
     hibernate:
-      ddl-auto: validate
-  # Configuration of liquibase
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
+      ddl-auto: none
 
 # Configuration of third-party API
 twelvdate:
@@ -31,7 +27,7 @@ twelvdate:
 rateupdater:
   rate:
     previous:
-      cron_expression: 0 0 * * * ?
+      cron_expression: "0 0 * * * ?"
     close:
-      cron_expression: 0 0 17 * * ?
-      timezone: America/New_York
+      cron_expression: "0 0 17 * * ?"
+      timezone: "America/New_York"
