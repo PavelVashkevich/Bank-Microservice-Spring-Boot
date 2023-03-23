@@ -1,0 +1,37 @@
+spring:
+  config:
+    activate:
+      on-profile: "development"
+  # Configuration of Data Source
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/bank_microservice_db
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  # Configuration of Hibernate
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        show_sql: true
+        # for debug purpose only
+        format_sql: true
+    hibernate:
+      ddl-auto: validate
+  # Configuration of liquibase
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+
+# Configuration of third-party API
+twelvdate:
+  api_key: ${TWELVDATE_API_KEY}
+
+# Configuration of daily currency rate updater
+rateupdater:
+  rate:
+    previous:
+      cron_expression: 0 0 * * * ?
+    close:
+      cron_expression: 0 0 17 * * ?
+      timezone: America/New_York
