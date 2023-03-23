@@ -42,5 +42,6 @@ public class CurrencyExchange {
 
     @Column(name = "datetime", columnDefinition = "DATE")
     @PastOrPresent
+    @NotNull
     private LocalDate datetime;
 }

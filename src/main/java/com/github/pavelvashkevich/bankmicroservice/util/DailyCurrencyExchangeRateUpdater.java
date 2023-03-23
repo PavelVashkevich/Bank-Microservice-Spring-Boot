@@ -15,7 +15,7 @@ import java.util.EnumSet;
 @Component
 public class DailyCurrencyExchangeRateUpdater {
 
-    @Value("${twelvedate.api.key}")
+    @Value("${twelvdate.api_key}")
     private String API_KEY;
     private final String END_OF_DAY_URL = "https://api.twelvedata.com/eod?symbol=%s&apikey=%s";
     private final RestTemplate restTemplate = new RestTemplate();
@@ -27,7 +27,7 @@ public class DailyCurrencyExchangeRateUpdater {
         this.currencyExchangeService = currencyExchangeService;
     }
 
-    @Scheduled(cron = "${copy.previous.rate.cron_expression}")
+    @Scheduled(cron = "${rateupdater.rate.previous.cron_expression}")
     public void addCurrencyExchangeRateForNewDay() {
         exchanges.forEach(exchange -> {
             CurrencyExchange currencyExchange = createCurrencyExchangeWithRateOnPreviousClose(exchange);
@@ -47,7 +47,8 @@ public class DailyCurrencyExchangeRateUpdater {
         return currencyExchangeService.findLatestBySymbol(exchange);
     }
 
-    @Scheduled(cron = "${request.rate.on.close.cron_expression}", zone = "${request.rate.on.close.timezone}")
+    @Scheduled(cron = "${rateupdater.rate.close.cron_expression}", zone = "${rateupdater.rate.close.timezone}")
+    @Scheduled(fixedRate = 30000L)
     public void updateCurrencyExchangeRateValueForNewDay() {
         exchanges.forEach(this::requestRestOnCloseValue);
     }

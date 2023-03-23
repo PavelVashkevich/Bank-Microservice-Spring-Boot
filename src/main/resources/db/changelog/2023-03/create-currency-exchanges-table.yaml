@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-03-24-1852
+      author: Vashkevich
+      changes:
+        - createTable:
+            tableName: currency_exchange
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: symbol
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: rate
+                  type: decimal
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+                    unique: false
