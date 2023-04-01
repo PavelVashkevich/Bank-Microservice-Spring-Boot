@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-03-29-1952
+      author: Vashkevich
+      changes:
+        - createTable:
+            tableName: account_limit
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: currency_shortname
+                  type: varchar(5)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: expense_category
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: sum
+                  type: numeric
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: datetime
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: account_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: false
+        - addForeignKeyConstraint:
+            baseTableName: account_limit
+            baseColumnNames: account_id
+            referencedTableName: bank_account
+            referencedColumnNames: id
+            constraintName: fk_account_limit_bank_account
+            onDelete: CASCADE

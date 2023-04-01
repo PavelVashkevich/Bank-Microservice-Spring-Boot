@@ -20,19 +20,18 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "currency_exchange")
+@Table
 public class CurrencyExchange {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotBlank(message = "Symbol cannot be null or blank.")
     @Pattern(regexp = "[A-Z]{3}/[A-Z]{3}", message = "Symbol must be in format 'Currency code/Currency code'")
     private String symbol;
     @PositiveOrZero(message = "Rate on close must be positive or zero.")
     @NotNull
     private BigDecimal rate;
-    @Column(columnDefinition = "DATE")
     @PastOrPresent
     @NotNull
     private LocalDate exchangeDate;

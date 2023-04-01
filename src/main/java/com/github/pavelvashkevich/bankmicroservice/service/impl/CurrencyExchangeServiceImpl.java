@@ -5,6 +5,7 @@ import com.github.pavelvashkevich.bankmicroservice.model.CurrencyExchange;
 import com.github.pavelvashkevich.bankmicroservice.repository.CurrencyExchangeRepository;
 import com.github.pavelvashkevich.bankmicroservice.service.CurrencyExchangeService;
 import com.github.pavelvashkevich.bankmicroservice.types.Exchange;
+import com.github.pavelvashkevich.bankmicroservice.util.MessageResourceBundler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,16 +34,16 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
 
     @Override
     public CurrencyExchange findBySymbolAndExchangeDate(Exchange exchange, LocalDate exchangeDate) {
-        return currencyExchangeRepository.findBySymbolAndDate(exchange.getSymbol(), exchangeDate)
+        return currencyExchangeRepository.findBySymbolAndExchangeDate(exchange.getSymbol(), exchangeDate)
                 .orElseThrow(() -> new NoDataFoundException(
-                        String.format("Currency exchange of %s on %s not found", exchange.getSymbol(), exchangeDate)));
+                        String.format(MessageResourceBundler.NO_CURRENCY_EXCH_ON_DATE_MSG, exchange.getSymbol(), exchangeDate)));
     }
 
     @Override
     public CurrencyExchange findLatestBySymbol(Exchange exchange) {
         return currencyExchangeRepository.findLatestBySymbol(exchange.getSymbol())
                 .orElseThrow(() -> new NoDataFoundException(
-                        String.format("Latest currency exchange of %s not found", exchange.getSymbol())));
+                        String.format(MessageResourceBundler.NO_LATEST_CURRENCY_EXCH_MSG, exchange.getSymbol())));
     }
 
     private void enrichCurrencyExchange(CurrencyExchange currencyExchange) {
