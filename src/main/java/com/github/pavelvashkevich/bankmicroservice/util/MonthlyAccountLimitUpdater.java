@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MonthlyAccountLimitUpdater {
     private final static long NUM_OF_MONTH_TO_SUBST = 1L;
-
     private final AccountLimitService accountLimitService;
 
     @Value("${limit.defaultCurrency}")
