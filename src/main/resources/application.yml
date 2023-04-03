@@ -1,3 +1,6 @@
+# Constant to re-use within the yaml config file
+define: &batchSize 50
+
 spring:
   config:
     activate:
@@ -12,22 +15,36 @@ spring:
   jpa:
     properties:
       hibernate:
+        jdbc:
+          batch_size: *batchSize
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
         show_sql: true
         # for debug purpose only
         format_sql: true
+        order_inserts: true
+        order_updates: true
     hibernate:
       ddl-auto: none
 
 # Configuration of third-party API
 twelvdate:
-  api_key: ${TWELVDATE_API_KEY}
+  apiKey: ${TWELVDATE_API_KEY}
 
 # Configuration of daily currency rate updater
-rateupdater:
+rateUpdater:
   rate:
     previous:
-      cron_expression: "0 0 * * * ?"
+      cronExpression: "0 0 * * * ?"
     close:
-      cron_expression: "0 0 17 * * ?"
+      cronExpression: "0 0 17 * * ?"
       timezone: "America/New_York"
+
+# Configuration of monthly limit updater
+limitUpdater:
+  batchSize: *batchSize
+  defaultLimit:
+    cronExpression: "0 0 * * * ?"
+
+# Others
+limit:
+  defaultCurrency: USD
