@@ -31,3 +31,12 @@ rateupdater:
     close:
       cron_expression: "0 0 17 * * ?"
       timezone: "America/New_York"
+
+# Configuration of monthly limit updater
+limitupdater:
+  default_limit:
+    cron_expression: "0 0 * * * ?"
+
+# Others
+limit:
+  default_currency: USD

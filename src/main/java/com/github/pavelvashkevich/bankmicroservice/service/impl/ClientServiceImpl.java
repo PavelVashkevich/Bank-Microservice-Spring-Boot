@@ -4,6 +4,8 @@ import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.BankAcc
 import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.ClientResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.exception.NoDataFoundException;
+import com.github.pavelvashkevich.bankmicroservice.handler.NewBankAccountLimitHandler;
+import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
 import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
 import com.github.pavelvashkevich.bankmicroservice.model.Client;
 import com.github.pavelvashkevich.bankmicroservice.repository.ClientRepository;
@@ -25,6 +27,7 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final ModelMapper modelMapper;
+    private final NewBankAccountLimitHandler newBankAccountLimitHandler;
 
     @Override
     @Transactional
@@ -35,6 +38,7 @@ public class ClientServiceImpl implements ClientService {
         bankAccount.setClient(client);
         enrichClient(client);
         Client createdClient = clientRepository.save(client);
+        newBankAccountLimitHandler.addAccountLimitToTheNewBankAccount(bankAccount);
         return modelMapper.map(createdClient, ClientResponseDto.class);
     }
 

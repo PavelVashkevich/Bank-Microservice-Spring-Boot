@@ -4,6 +4,7 @@ import com.github.pavelvashkevich.bankmicroservice.types.EndOfDayTwelveApiData;
 import com.github.pavelvashkevich.bankmicroservice.model.CurrencyExchange;
 import com.github.pavelvashkevich.bankmicroservice.service.CurrencyExchangeService;
 import com.github.pavelvashkevich.bankmicroservice.types.Exchange;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.EnumSet;
 
 @Component
+@RequiredArgsConstructor
 public class DailyCurrencyExchangeRateUpdater {
 
     private final static String END_OF_DAY_URL = "https://api.twelvedata.com/eod?symbol=%s&apikey=%s";
@@ -20,10 +22,6 @@ public class DailyCurrencyExchangeRateUpdater {
     private final CurrencyExchangeService currencyExchangeService;
     @Value("${twelvedate.api.key}")
     private String API_KEY;
-
-    public DailyCurrencyExchangeRateUpdater(CurrencyExchangeService currencyExchangeService) {
-        this.currencyExchangeService = currencyExchangeService;
-    }
 
     @Scheduled(cron = "${rateupdater.rate.previous.cron_expression}")
     public void addCurrencyExchangeRateForNewDay() {
