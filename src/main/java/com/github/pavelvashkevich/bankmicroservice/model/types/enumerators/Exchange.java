@@ -1,4 +1,4 @@
-package com.github.pavelvashkevich.bankmicroservice.types;
+package com.github.pavelvashkevich.bankmicroservice.model.types.enumerators;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

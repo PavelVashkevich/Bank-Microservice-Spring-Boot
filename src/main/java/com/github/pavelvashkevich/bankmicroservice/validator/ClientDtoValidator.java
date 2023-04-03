@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.validator;
 
-import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.ClientRequestDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
 import com.github.pavelvashkevich.bankmicroservice.repository.BankAccountRepository;
 import lombok.AllArgsConstructor;

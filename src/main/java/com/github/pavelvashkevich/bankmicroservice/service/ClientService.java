@@ -1,7 +1,7 @@
 package com.github.pavelvashkevich.bankmicroservice.service;
 
-import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.ClientRequestDto;
-import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.ClientResponseDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.model.Client;
 
 import java.time.LocalDate;
@@ -15,5 +15,5 @@ public interface ClientService {
 
     List<Client> findByRegistrationDate(LocalDate registrationDate);
 
-    ClientResponseDto getOne(long id);
+    ClientResponseDto getClient(long id);
 }

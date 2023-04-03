@@ -11,14 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class BankAccountServiceImpl implements BankAccountService {
 
+    public static final String NO_ACCOUNT_NUM_MSG = "Account number %d doesn't exist";
     private final BankAccountRepository bankAccountRepository;
 
     @Override
     public BankAccount findByAccountNumber(int accountNumber) {
         return bankAccountRepository.findByAccountNumber(accountNumber).orElseThrow(
-                () -> new NoDataFoundException(String.format(MessageResourceBundler.NO_ACCOUNT_NUM_MSG, accountNumber)));
+                () -> new NoDataFoundException(String.format(NO_ACCOUNT_NUM_MSG, accountNumber)));
     }
 }

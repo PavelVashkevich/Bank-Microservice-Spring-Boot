@@ -1,4 +1,4 @@
-package com.github.pavelvashkevich.bankmicroservice.types;
+package com.github.pavelvashkevich.bankmicroservice.model.types;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

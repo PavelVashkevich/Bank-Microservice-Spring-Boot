@@ -1,49 +1,42 @@
 package com.github.pavelvashkevich.bankmicroservice.util;
 
-import com.github.pavelvashkevich.bankmicroservice.types.EndOfDayTwelveApiData;
 import com.github.pavelvashkevich.bankmicroservice.model.CurrencyExchange;
 import com.github.pavelvashkevich.bankmicroservice.service.CurrencyExchangeService;
-import com.github.pavelvashkevich.bankmicroservice.types.Exchange;
-import org.springframework.beans.factory.annotation.Value;
+import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Exchange;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.EnumSet;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
+@RequiredArgsConstructor
 public class DailyCurrencyExchangeRateUpdater {
 
-    private final static String END_OF_DAY_URL = "https://api.twelvedata.com/eod?symbol=%s&apikey=%s";
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final EnumSet<Exchange> exchanges = EnumSet.allOf(Exchange.class);
     private final CurrencyExchangeService currencyExchangeService;
-    @Value("${twelvedate.api.key}")
-    private String API_KEY;
+    private final TwelveApiUtil twelveApiUtil;
 
-    public DailyCurrencyExchangeRateUpdater(CurrencyExchangeService currencyExchangeService) {
-        this.currencyExchangeService = currencyExchangeService;
-    }
-
-    @Scheduled(cron = "${rateupdater.rate.previous.cron_expression}")
+    @Scheduled(cron = "${rateUpdater.rate.previous.cronExpression}")
     public void addCurrencyExchangeRateForNewDay() {
-        exchanges.forEach(exchange -> {
-            CurrencyExchange currencyExchange = createCurrencyExchangeWithRateOnPreviousClose(exchange);
-            currencyExchangeService.save(currencyExchange);
-        });
+        List<CurrencyExchange> currencyExchangesForNewDay = Stream.of(Exchange.values())
+                .map(this::createCurrencyExchangeWithRateOnPreviousClose).collect(Collectors.toList());
+        currencyExchangeService.saveAll(currencyExchangesForNewDay);
     }
 
-    @Scheduled(cron = "${rateupdater.rate.close.cron_expression}", zone = "${rateupdater.rate.close.timezone}")
+    @Scheduled(cron = "${rateUpdater.rate.close.cronExpression}", zone = "${rateUpdater.rate.close.timezone}")
     public void updateCurrencyExchangeRateValueForNewDay() {
-        exchanges.forEach(this::requestRestOnCloseValue);
-    }
-
-    private void requestRestOnCloseValue(Exchange exchange) {
-        String requestUrl = buildEndOfDayGetRequestUrl(exchange);
-        EndOfDayTwelveApiData endOfDayTwelveApiData = restTemplate.getForObject(requestUrl, EndOfDayTwelveApiData.class);
-        CurrencyExchange currencyExchangeToUpdate = currencyExchangeService.findLatestBySymbol(exchange);
-        currencyExchangeToUpdate.setRate(endOfDayTwelveApiData.getClose());
-        currencyExchangeService.update(currencyExchangeToUpdate);
+        List<CurrencyExchange> updatedCurrencyExchangesWithCloseRate = Stream.of(Exchange.values())
+                .map(exchange -> {
+                    CurrencyExchange currencyExchangeToUpdate = currencyExchangeService.findLatestBySymbol(exchange);
+                    Optional<BigDecimal> rateOnClose = twelveApiUtil.getRateOnCloseForSpecificExchange(exchange);
+                    rateOnClose.ifPresent(currencyExchangeToUpdate::setRate);
+                    return currencyExchangeToUpdate;
+                }).collect(Collectors.toList());
+        currencyExchangeService.updateAll(updatedCurrencyExchangesWithCloseRate);
     }
 
     private CurrencyExchange createCurrencyExchangeWithRateOnPreviousClose(Exchange exchange) {
@@ -56,9 +49,5 @@ public class DailyCurrencyExchangeRateUpdater {
 
     private CurrencyExchange getPreviousDayCurrencyExchange(Exchange exchange) {
         return currencyExchangeService.findLatestBySymbol(exchange);
-    }
-
-    private String buildEndOfDayGetRequestUrl(Exchange exchange) {
-        return String.format(END_OF_DAY_URL, exchange.getSymbol(), API_KEY);
     }
 }
