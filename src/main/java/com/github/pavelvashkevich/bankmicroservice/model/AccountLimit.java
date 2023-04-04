@@ -4,6 +4,7 @@ import com.github.pavelvashkevich.bankmicroservice.types.Currency;
 import com.github.pavelvashkevich.bankmicroservice.types.ExpenseCategory;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,6 +35,7 @@ public class AccountLimit {
     @NotNull
     private Currency currencyShortname;
     @Enumerated(value = EnumType.STRING)
+    @ColumnTransformer(read = "UPPER(expense_category)", write = "LOWER(?)")
     private ExpenseCategory expenseCategory;
     @PositiveOrZero(message = "Sum must be equal of higher than 0")
     @NotNull

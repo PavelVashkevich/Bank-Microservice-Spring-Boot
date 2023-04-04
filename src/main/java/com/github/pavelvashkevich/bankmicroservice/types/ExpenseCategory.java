@@ -1,13 +1,10 @@
 package com.github.pavelvashkevich.bankmicroservice.types;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@RequiredArgsConstructor
 public enum ExpenseCategory {
-    PRODUCT("product"),
-    SERVICE("service");
-
-    @Getter
-    private final String name;
+    @JsonProperty(value = "product")
+    PRODUCT,
+    @JsonProperty(value = "service")
+    SERVICE
 }

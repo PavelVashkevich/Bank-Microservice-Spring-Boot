@@ -36,6 +36,7 @@ rateupdater:
 limitupdater:
   default_limit:
     cron_expression: "0 0 * * * ?"
+#    cron_expression: "PT30s"
 
 # Others
 limit:

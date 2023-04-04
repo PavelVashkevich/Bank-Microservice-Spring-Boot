@@ -23,6 +23,7 @@ public class MonthlyAccountLimitUpdater {
     private Currency limitCurrency;
 
     @Scheduled(cron = "${limitupdater.default_limit.cron_expression}")
+//    @Scheduled(fixedDelayString = "${limitupdater.default_limit.cron_expression}")
     public void addDefaultLimitForNewMonth() {
         LocalDate monthBefore = LocalDate.now().minusMonths(NUM_OF_MONTH_TO_SUBST);
         List<AccountLimit> limitsSetMonthBefore

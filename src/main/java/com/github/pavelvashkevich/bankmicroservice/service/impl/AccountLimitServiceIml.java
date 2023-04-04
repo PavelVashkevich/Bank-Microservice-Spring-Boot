@@ -1,5 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.service.impl;
 
+import com.github.pavelvashkevich.bankmicroservice.controller.dto.limit.AccountLimitRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
 import com.github.pavelvashkevich.bankmicroservice.model.Client;
 import com.github.pavelvashkevich.bankmicroservice.repository.LimitRepository;
@@ -23,6 +24,11 @@ public class AccountLimitServiceIml implements AccountLimitService {
     @Transactional
     public void save(AccountLimit limit) {
         limitRepository.save(limit);
+    }
+
+    @Override
+    public void save(AccountLimitRequestDto limit) {
+
     }
 
     @Override
