@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CurrencyExchangeRepository extends JpaRepository<CurrencyExchange, Long> {
 
-    Optional<CurrencyExchange> findBySymbolAndDate(String symbol, LocalDate date);
+    Optional<CurrencyExchange> findBySymbolAndExchangeDate(String symbol, LocalDate exchangeDate);
 
     @Query(value = "SELECT * FROM currency_exchange WHERE symbol = ?1 ORDER BY id DESC LIMIT 1", nativeQuery = true)
     Optional<CurrencyExchange> findLatestBySymbol(String symbol);
