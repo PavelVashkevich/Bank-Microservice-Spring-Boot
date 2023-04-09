@@ -4,7 +4,6 @@ import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.exception.BankAccountExistException;
 import com.github.pavelvashkevich.bankmicroservice.service.impl.ClientServiceImpl;
-import com.github.pavelvashkevich.bankmicroservice.util.MessageResourceBundler;
 import com.github.pavelvashkevich.bankmicroservice.validator.ClientDtoValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

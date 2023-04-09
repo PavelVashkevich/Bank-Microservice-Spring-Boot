@@ -4,7 +4,6 @@ import com.github.pavelvashkevich.bankmicroservice.exception.NoDataFoundExceptio
 import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
 import com.github.pavelvashkevich.bankmicroservice.repository.BankAccountRepository;
 import com.github.pavelvashkevich.bankmicroservice.service.BankAccountService;
-import com.github.pavelvashkevich.bankmicroservice.util.MessageResourceBundler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
