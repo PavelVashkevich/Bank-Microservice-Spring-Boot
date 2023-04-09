@@ -1,6 +1,5 @@
 package com.github.pavelvashkevich.bankmicroservice.mapper;
 
-
 import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
