@@ -57,4 +57,4 @@ limitUpdater:
     cronExpression: "0 0 * * * ?"
 # Others
 limit:
-  defaultCurrency: USD
+  defaultCurrency: "USD"
