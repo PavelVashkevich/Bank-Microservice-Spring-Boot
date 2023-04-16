@@ -1,7 +1,7 @@
 package com.github.pavelvashkevich.bankmicroservice.util;
 
-import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
-import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
 import com.github.pavelvashkevich.bankmicroservice.service.impl.AccountLimitServiceIml;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Currency;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;

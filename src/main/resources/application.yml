@@ -1,17 +1,25 @@
 # Constant to re-use within the yaml config file
 define: &batchSize 50
-
 spring:
   config:
     activate:
       on-profile: "development"
-  # Configuration of Data Source
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bank_microservice_db
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-  # Configuration of Hibernate
+#   Configuration of Data Source
+    persistence:
+      postgres:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/bank_microservice_db
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        schema: public
+        liquibase:
+          changelog: "classpath:/db/changelog/db.changelog-postgres-master.yaml"
+        packageToScan: com.github.pavelvashkevich.bankmicroservice.model.postgres
+      cassandra:
+        contactPoints: localhost
+        localDatacenter: datacenter1
+        keyspaceName: currency_exchange_cassandra
+#  Configuration of Hibernate
   jpa:
     properties:
       hibernate:
@@ -25,11 +33,12 @@ spring:
         order_updates: true
     hibernate:
       ddl-auto: none
-
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 # Configuration of third-party API
 twelvdate:
   apiKey: ${TWELVDATE_API_KEY}
-
 # Configuration of daily currency rate updater
 rateUpdater:
   rate:
@@ -38,13 +47,11 @@ rateUpdater:
     close:
       cronExpression: "0 0 17 * * ?"
       timezone: "America/New_York"
-
 # Configuration of monthly limit updater
 limitUpdater:
   batchSize: *batchSize
   defaultLimit:
     cronExpression: "0 0 * * * ?"
-
 # Others
 limit:
   defaultCurrency: USD

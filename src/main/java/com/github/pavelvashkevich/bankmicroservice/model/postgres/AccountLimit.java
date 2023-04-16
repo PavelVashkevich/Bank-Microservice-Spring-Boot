@@ -1,4 +1,4 @@
-package com.github.pavelvashkevich.bankmicroservice.model;
+package com.github.pavelvashkevich.bankmicroservice.model.postgres;
 
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Currency;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;

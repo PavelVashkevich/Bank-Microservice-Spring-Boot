@@ -15,6 +15,12 @@
 	<description>Banking microservice for processing customer transactions</description>
 	<properties>
 		<java.version>11</java.version>
+		<awaitility.version>4.2.0</awaitility.version>
+		<modelmapper.version>3.0.0</modelmapper.version>
+		<liquibase.version>4.9.1</liquibase.version>
+		<h2database.verion>2.1.214</h2database.verion>
+		<spring-data-cassandra.version>3.1.0</spring-data-cassandra.version>
+		<datastax-java-driver.version>4.14.1</datastax-java-driver.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,24 +53,34 @@
 		<dependency>
 			<groupId>org.awaitility</groupId>
 			<artifactId>awaitility</artifactId>
-			<version>4.2.0</version>
+			<version>${awaitility.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>3.0.0</version>
+			<version>${modelmapper.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-			<version>4.9.1</version>
+			<version>${liquibase.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>2.1.214</version>
+			<version>${h2database.verion}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-cassandra</artifactId>
+			<version>${spring-data-cassandra.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.datastax.oss</groupId>
+			<artifactId>java-driver-core</artifactId>
+			<version>${datastax-java-driver.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

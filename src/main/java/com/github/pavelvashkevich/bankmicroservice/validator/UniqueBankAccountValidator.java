@@ -1,7 +1,8 @@
 package com.github.pavelvashkevich.bankmicroservice.validator;
 
+
+import com.github.pavelvashkevich.bankmicroservice.repository.postgres.BankAccountRepository;
 import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.UniqueBankAccountNumber;
-import com.github.pavelvashkevich.bankmicroservice.repository.BankAccountRepository;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

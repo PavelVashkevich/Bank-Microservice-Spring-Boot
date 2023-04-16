@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.util;
 
-import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
 import com.github.pavelvashkevich.bankmicroservice.service.AccountLimitService;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Currency;
 import lombok.RequiredArgsConstructor;

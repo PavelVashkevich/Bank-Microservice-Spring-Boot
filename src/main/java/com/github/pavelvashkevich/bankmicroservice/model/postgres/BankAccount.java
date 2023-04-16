@@ -1,4 +1,4 @@
-package com.github.pavelvashkevich.bankmicroservice.model;
+package com.github.pavelvashkevich.bankmicroservice.model.postgres;
 
 import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.AccountNumberConstraint;
 import lombok.Getter;
@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.github.pavelvashkevich.bankmicroservice.service.impl;
 
 import com.github.pavelvashkevich.bankmicroservice.exception.NoDataFoundException;
-import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
-import com.github.pavelvashkevich.bankmicroservice.repository.BankAccountRepository;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
+import com.github.pavelvashkevich.bankmicroservice.repository.postgres.BankAccountRepository;
 import com.github.pavelvashkevich.bankmicroservice.service.BankAccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

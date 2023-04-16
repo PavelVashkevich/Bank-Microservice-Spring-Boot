@@ -1,4 +1,4 @@
-package com.github.pavelvashkevich.bankmicroservice.model;
+package com.github.pavelvashkevich.bankmicroservice.model.postgres;
 
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 import lombok.Getter;
@@ -42,7 +42,7 @@ public class Transaction {
     private ExpenseCategory expenseCategory;
     @PastOrPresent(message = "Datetime cannot be set to the future")
     @NotNull
-    private ZonedDateTime dateTime;
+    private ZonedDateTime datetime;
     @NotNull
     private Boolean limitExceeded;
     @ManyToOne
