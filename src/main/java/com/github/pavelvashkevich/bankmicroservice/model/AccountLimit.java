@@ -5,6 +5,7 @@ import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Expen
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnTransformer;
 
@@ -29,6 +30,7 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class AccountLimit {
     @Id
@@ -54,8 +56,4 @@ public class AccountLimit {
     private BankAccount bankAccount;
     @OneToMany(mappedBy = "accountLimit")
     private List<Transaction> transactions;
-
-    public AccountLimit() {
-
-    }
 }
