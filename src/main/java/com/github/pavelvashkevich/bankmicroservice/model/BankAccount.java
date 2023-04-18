@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table
 public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

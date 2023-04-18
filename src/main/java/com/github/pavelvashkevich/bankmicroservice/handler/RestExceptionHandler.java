@@ -2,7 +2,7 @@ package com.github.pavelvashkevich.bankmicroservice.handler;
 
 import com.github.pavelvashkevich.bankmicroservice.exception.BankAccountExistException;
 import com.github.pavelvashkevich.bankmicroservice.exception.NoDataFoundException;
-import com.github.pavelvashkevich.bankmicroservice.types.ErrorResponse;
+import com.github.pavelvashkevich.bankmicroservice.model.types.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
