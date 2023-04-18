@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.model;
 
-import com.github.pavelvashkevich.bankmicroservice.types.ExpenseCategory;
+import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -24,7 +23,6 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @Entity
-@Table
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.validator;
 
-import com.github.pavelvashkevich.bankmicroservice.controller.dto.client.ClientRequestDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
 import com.github.pavelvashkevich.bankmicroservice.repository.BankAccountRepository;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.validation.Validator;
 @Component
 @AllArgsConstructor
 public class ClientDtoValidator implements Validator {
-
     private BankAccountRepository bankAccountRepository;
 
     @Override
