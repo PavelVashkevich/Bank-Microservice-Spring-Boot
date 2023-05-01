@@ -1,5 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.model;
 
+import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.AccountNumberConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +23,8 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Digits(integer = 10, fraction = 0, message = "'account_number' must contain 10 digits")
-    private Integer accountNumber;
+    @AccountNumberConstraint
+    private Long accountNumber;
     @OneToOne
     @JoinColumn(name = "client_id",referencedColumnName = "id")
     private Client client;
