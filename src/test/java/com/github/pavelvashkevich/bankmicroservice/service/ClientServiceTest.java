@@ -34,8 +34,8 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class ClientServiceTest {
     private static final long TEST_ID = 1L;
-    private static final int TEST_BANK_ACCOUNT_NUM = 1234567891;
-    private static final int TEST_BANK_ACCOUNT_2_NUM = 1234567892;
+    private static final long TEST_BANK_ACCOUNT_NUM = 1234567891L;
+    private static final long TEST_BANK_ACCOUNT_2_NUM = 1234567892L;
     private static final int EXPECTED_NUM_OF_DELETE_BY_ID_INV = 1;
     private static final LocalDate TEST_DATE = LocalDate.of(2000, 1, 1);
 
@@ -141,11 +141,11 @@ public class ClientServiceTest {
     private ClientRequestDto createClientRequestDto(BankAccountDto bankAccountDto) {
         ClientRequestDto clientRequestDto = new ClientRequestDto();
         bankAccountDto.setAccountNumber(TEST_BANK_ACCOUNT_NUM);
-        clientRequestDto.setBankAccountDTO(bankAccountDto);
+        clientRequestDto.setBankAccount(bankAccountDto);
         return clientRequestDto;
     }
 
-    private BankAccount createBankAccount(int accountNumber) {
+    private BankAccount createBankAccount(long accountNumber) {
         BankAccount bankAccount = new BankAccount();
         bankAccount.setAccountNumber(accountNumber);
         return bankAccount;

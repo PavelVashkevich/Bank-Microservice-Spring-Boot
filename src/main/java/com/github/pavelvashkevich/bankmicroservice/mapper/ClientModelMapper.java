@@ -15,7 +15,7 @@ public class ClientModelMapper {
     private final ModelMapper modelMapper;
 
     public Client mapRequestDtoToClient(ClientRequestDto clientRequestDto) {
-        BankAccount bankAccount = modelMapper.map(clientRequestDto.getBankAccountDTO(), BankAccount.class);
+        BankAccount bankAccount = modelMapper.map(clientRequestDto.getBankAccount(), BankAccount.class);
         Client client = modelMapper.map(clientRequestDto, Client.class);
         client.setBankAccount(bankAccount);
         bankAccount.setClient(client);

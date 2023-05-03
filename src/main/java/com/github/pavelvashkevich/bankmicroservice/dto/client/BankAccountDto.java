@@ -2,10 +2,11 @@ package com.github.pavelvashkevich.bankmicroservice.dto.client;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.AccountNumberConstraint;
+import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.UniqueBankAccountNumber;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class BankAccountDto {
     @NotNull
-    @Digits(integer = 10, fraction = 0, message = "'account_number' must contain 10 digits")
-    private Integer accountNumber;
+    @UniqueBankAccountNumber
+    @AccountNumberConstraint(message = "Size of the account number must be 10 digits")
+    private Long accountNumber;
 }

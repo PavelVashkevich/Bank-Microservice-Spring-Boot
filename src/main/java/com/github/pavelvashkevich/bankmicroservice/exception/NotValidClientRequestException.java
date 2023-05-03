@@ -1,10 +1,9 @@
 package com.github.pavelvashkevich.bankmicroservice.exception;
 
-public class NoDataFoundException extends RuntimeException {
-
+public class NotValidClientRequestException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
-    public NoDataFoundException(String message) {
+    public NotValidClientRequestException(String message) {
         super(message);
     }
 }

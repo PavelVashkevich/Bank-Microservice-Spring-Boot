@@ -2,9 +2,9 @@ package com.github.pavelvashkevich.bankmicroservice.controller;
 
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
-import com.github.pavelvashkevich.bankmicroservice.exception.BankAccountExistException;
+import com.github.pavelvashkevich.bankmicroservice.exception.NotValidClientRequestException;
 import com.github.pavelvashkevich.bankmicroservice.service.impl.ClientServiceImpl;
-import com.github.pavelvashkevich.bankmicroservice.validator.ClientDtoValidator;
+import com.github.pavelvashkevich.bankmicroservice.util.ValidationErrorResponseCreator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +24,14 @@ import java.net.URI;
 @RequestMapping("/api/v1/clients")
 @AllArgsConstructor
 public class ClientController {
-    private static final String BANK_ACCOUNT_TAKEN_MSG = "Bank account number has been taken";
-
     private final ClientServiceImpl clientService;
-    private final ClientDtoValidator clientRequestDtoValidator;
+    private final ValidationErrorResponseCreator validationErrorResponseCreator;
 
     @PostMapping
     public ResponseEntity<ClientResponseDto> addNewClient(@Valid @RequestBody ClientRequestDto clientRequestDto, BindingResult bindingResult) {
-        clientRequestDtoValidator.validate(clientRequestDto, bindingResult);
         if (bindingResult.hasErrors()) {
-            throw new BankAccountExistException(BANK_ACCOUNT_TAKEN_MSG);
+            String response = validationErrorResponseCreator.createResponse(bindingResult);
+            throw new NotValidClientRequestException(response);
         }
         ClientResponseDto clientResponseDto = clientService.save(clientRequestDto);
         return ResponseEntity.created(URI.create("/api/v1/clients/" + clientResponseDto.getId())).build();
