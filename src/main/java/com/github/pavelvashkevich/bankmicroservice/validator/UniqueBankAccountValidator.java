@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
-public class UniqueBankAccountValidator implements ConstraintValidator<UniqueBankAccountNumber, Integer> {
+public class UniqueBankAccountValidator implements ConstraintValidator<UniqueBankAccountNumber, Long> {
     private final BankAccountRepository bankAccountRepository;
 
     public UniqueBankAccountValidator(BankAccountRepository bankAccountRepository) {
@@ -15,14 +15,14 @@ public class UniqueBankAccountValidator implements ConstraintValidator<UniqueBan
     }
 
     @Override
-    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+    public boolean isValid(Long value, ConstraintValidatorContext context) {
         if (Objects.isNull(value)) {
             return true;
         }
         return !isBankAccountWithNumberExist(value);
     }
 
-    private boolean isBankAccountWithNumberExist(int accountNumber) {
+    private boolean isBankAccountWithNumberExist(long accountNumber) {
         return (bankAccountRepository.findByAccountNumber(accountNumber).isPresent());
     }
 }

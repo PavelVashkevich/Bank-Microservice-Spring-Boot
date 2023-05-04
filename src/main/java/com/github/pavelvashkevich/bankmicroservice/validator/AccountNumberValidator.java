@@ -6,10 +6,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
-public class AccountNumberValidator implements ConstraintValidator<AccountNumberConstraint, Integer> {
+public class AccountNumberValidator implements ConstraintValidator<AccountNumberConstraint, Long> {
 
     @Override
-    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+    public boolean isValid(Long value, ConstraintValidatorContext context) {
         if (Objects.isNull(value))
             return true;
         return String.valueOf(value).length() == 10;
