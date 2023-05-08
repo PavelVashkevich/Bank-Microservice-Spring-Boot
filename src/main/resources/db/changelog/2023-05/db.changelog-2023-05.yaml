@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023-05-04-2333
+      author: Vashkevich
+      changes:
+        - modifyDataType:
+            tableName: bank_account
+            columnName: account_number
+            newDataType: BIGINT
+  - changeSet:
+      id: 2023-05-04-2336
+      author: Vashkevich
+      changes:
+        - modifyDataType:
+            tableName: transaction
+            newDataType: BIGINT
+            columnName: account_from
+  - changeSet:
+      id: 2023-05-04-2340
+      author: Vashkevich
+      changes:
+        - modifyDataType:
+            tableName: transaction
+            newDataType: BIGINT
+            columnName: account_to

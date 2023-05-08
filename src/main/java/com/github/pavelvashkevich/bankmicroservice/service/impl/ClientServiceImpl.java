@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
-    private static final String NO_CLIENT_WITH_ID_MSG = "Client with %d doesn't exist";
+    private static final String NO_CLIENT_WITH_ID_MSG = "Client with id %d doesn't exist";
 
     private final ClientRepository clientRepository;
     private final ClientModelMapper clientModelMapper;

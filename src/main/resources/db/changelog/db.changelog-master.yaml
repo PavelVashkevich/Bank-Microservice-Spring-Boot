@@ -7,3 +7,5 @@ databaseChangeLog:
             tag: bank_microservice_db
   - include:
       file: db/changelog/2023-03/db.changelog-2023-03.yaml
+  - include:
+      file: db/changelog/2023-05/db.changelog-2023-05.yaml
