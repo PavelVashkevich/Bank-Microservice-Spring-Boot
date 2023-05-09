@@ -24,8 +24,32 @@ public class ValidationErrorResponseCreator {
         StringBuilder response = new StringBuilder();
         for (FieldError fieldError : fieldErrors) {
             response.append(fieldError.getField()).append(" - ").append(fieldError.getDefaultMessage()).append(";");
+            response.append(modifyFieldName(fieldError.getField()))
+                    .append(" - ").append(fieldError.getDefaultMessage()).append(";");
         }
         return response.toString();
+    }
+
+    private String modifyFieldName(String fieldName) {
+        String resultFieldName = getTheLastFieldFromFieldName(fieldName);
+        return convertFieldNameToSnakeCase(resultFieldName);
+    }
+
+    private String getTheLastFieldFromFieldName(String fieldName) {
+        String[] splitFieldError = fieldName.split("\\.");
+        return splitFieldError.length >= 2 ? splitFieldError[splitFieldError.length - 1] : fieldName;
+    }
+
+    private String convertFieldNameToSnakeCase(String fieldName) {
+        StringBuilder result = new StringBuilder();
+        for(char ch: fieldName.toCharArray()) {
+            if(Character.isUpperCase(ch)) {
+                result.append("_").append(Character.toLowerCase(ch));
+                continue;
+            }
+            result.append(ch);
+        }
+        return result.toString();
     }
 
     private String createGlobalErrorsResponse(List<ObjectError> globalErrors) {
