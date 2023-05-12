@@ -23,7 +23,6 @@ public class ValidationErrorResponseCreator {
     private String createFieldErrorsResponse(List<FieldError> fieldErrors) {
         StringBuilder response = new StringBuilder();
         for (FieldError fieldError : fieldErrors) {
-            response.append(fieldError.getField()).append(" - ").append(fieldError.getDefaultMessage()).append(";");
             response.append(modifyFieldName(fieldError.getField()))
                     .append(" - ").append(fieldError.getDefaultMessage()).append(";");
         }
