@@ -3,14 +3,14 @@ define: &batchSize 50
 spring:
   config:
     activate:
-      on-profile: "development"
-#   Configuration of Data Source
+      on-profile: "test"
+    #   Configuration of Data Source
     persistence:
       postgres:
         driverClassName: org.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/bank_microservice_db
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
+        username: postgres
+        password: test
         schema: public
         liquibase:
           changelog: "classpath:/db/changelog/db.changelog-postgres-master.yaml"
@@ -18,8 +18,8 @@ spring:
       cassandra:
         contactPoints: localhost
         localDatacenter: datacenter1
-        keyspaceName: currency_exchange_cassandra
-#  Configuration of Hibernate
+        keyspaceName: spring_currency_exchange_cassandra
+  #  Configuration of Hibernate
   jpa:
     properties:
       hibernate:
@@ -38,7 +38,7 @@ spring:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 # Configuration of third-party API
 twelvdate:
-  apiKey: ${TWELVDATE_API_KEY}
+  apiKey: 3c9fcbdeca124aec8f4dec9bcb651818
   maxConnectionRetryAttempts: 5
   minDelayBetweenAttempts: 500
   maxDelayBetweenAttempts: 1000
@@ -57,4 +57,4 @@ limitUpdater:
     cronExpression: "0 0 * * * ?"
 # Others
 limit:
-  defaultCurrency: USD
+  defaultCurrency: "USD"

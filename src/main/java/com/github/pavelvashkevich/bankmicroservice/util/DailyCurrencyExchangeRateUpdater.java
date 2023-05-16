@@ -5,6 +5,8 @@ import com.github.pavelvashkevich.bankmicroservice.model.cassandra.CurrencyExcha
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Exchange;
 import com.github.pavelvashkevich.bankmicroservice.service.CurrencyExchangeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,30 +25,38 @@ public class DailyCurrencyExchangeRateUpdater {
 
     private final CurrencyExchangeService currencyExchangeService;
     private final TwelveApiUtil twelveApiUtil;
+    private final ApplicationContext applicationContext;
 
     @PostConstruct
-    public void init () {
-        // TODO
-        // init first value to DB
+    public void initFirstCurrencyExchangeValuesInDB() {
+        List<CurrencyExchange> initCurrencyExchanges = Stream.of(Exchange.values()).map(exchange -> {
+            CurrencyExchange currencyExchange = new CurrencyExchange();
+            currencyExchange.setCurrencyExchangeKey(buildCurrencyExchangeKey(exchange, getTodayDate()));
+            Optional<BigDecimal> rateOnClose = twelveApiUtil.getRateOnCloseForSpecificExchange(exchange);
+            rateOnClose.ifPresentOrElse(currencyExchange::setRate, () ->
+                    // TODO log.error; Failed to init first currency exchanges valued in DB; Remote API issue
+                    // check the logs to find the specific error. Application stopped
+                    System.exit(SpringApplication.exit(applicationContext, () -> 0)));
+            return currencyExchange;
+        }).collect(Collectors.toList());
+        currencyExchangeService.saveAll(initCurrencyExchanges);
     }
 
     @Scheduled(cron = "${rateUpdater.rate.previous.cronExpression}")
     public void addCurrencyExchangeRateForNewDay() {
-        List<CurrencyExchange> currencyExchangesForNewDay = Stream.of(Exchange.values())
-                .map(this::createCurrencyExchangeWithRateOnPreviousClose).collect(Collectors.toList());
+        List<CurrencyExchange> currencyExchangesForNewDay = Stream.of(Exchange.values()).map(this::createCurrencyExchangeWithRateOnPreviousClose).collect(Collectors.toList());
         currencyExchangeService.saveAll(currencyExchangesForNewDay);
     }
 
     @Scheduled(cron = "${rateUpdater.rate.close.cronExpression}", zone = "${rateUpdater.rate.close.timezone}")
     public void updateCurrencyExchangeRateValueForNewDay() {
-        List<CurrencyExchange> updatedCurrencyExchangesWithCloseRate = Stream.of(Exchange.values())
-                .map(exchange -> {
-                    CurrencyExchangeKey currencyExchangeKey = buildCurrencyExchangeKey(exchange, getTodayDate());
-                    CurrencyExchange currencyExchangeToUpdate = currencyExchangeService.findById(currencyExchangeKey);
-                    Optional<BigDecimal> rateOnClose = twelveApiUtil.getRateOnCloseForSpecificExchange(exchange);
-                    rateOnClose.ifPresent(currencyExchangeToUpdate::setRate);
-                    return currencyExchangeToUpdate;
-                }).collect(Collectors.toList());
+        List<CurrencyExchange> updatedCurrencyExchangesWithCloseRate = Stream.of(Exchange.values()).map(exchange -> {
+            CurrencyExchangeKey currencyExchangeKey = buildCurrencyExchangeKey(exchange, getTodayDate());
+            CurrencyExchange currencyExchangeToUpdate = currencyExchangeService.findById(currencyExchangeKey);
+            Optional<BigDecimal> rateOnClose = twelveApiUtil.getRateOnCloseForSpecificExchange(exchange);
+            rateOnClose.ifPresent(currencyExchangeToUpdate::setRate);
+            return currencyExchangeToUpdate;
+        }).collect(Collectors.toList());
         currencyExchangeService.updateAll(updatedCurrencyExchangesWithCloseRate);
     }
 
@@ -64,11 +74,7 @@ public class DailyCurrencyExchangeRateUpdater {
     }
 
     private CurrencyExchangeKey buildCurrencyExchangeKey(Exchange exchange, LocalDate date) {
-        return CurrencyExchangeKey
-                .builder()
-                .symbol(exchange.getSymbol())
-                .exchangeDate(date)
-                .build();
+        return CurrencyExchangeKey.builder().symbol(exchange.getSymbol()).exchangeDate(date).build();
     }
 
     private LocalDate getTodayDate() {
