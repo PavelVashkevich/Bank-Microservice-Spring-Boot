@@ -1,7 +1,7 @@
-package com.github.pavelvashkevich.bankmicroservice.repository;
+package com.github.pavelvashkevich.bankmicroservice.repository.postgres;
 
-import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
-import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

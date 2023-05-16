@@ -1,7 +1,7 @@
 package com.github.pavelvashkevich.bankmicroservice.service;
 
-import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
-import com.github.pavelvashkevich.bankmicroservice.model.Client;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.Client;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 
 import java.time.LocalDate;

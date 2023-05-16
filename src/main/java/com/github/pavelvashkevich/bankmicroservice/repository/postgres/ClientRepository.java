@@ -1,6 +1,6 @@
-package com.github.pavelvashkevich.bankmicroservice.repository;
+package com.github.pavelvashkevich.bankmicroservice.repository.postgres;
 
-import com.github.pavelvashkevich.bankmicroservice.model.Client;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,9 @@
 package com.github.pavelvashkevich.bankmicroservice.repository;
 
-import com.github.pavelvashkevich.bankmicroservice.model.BankAccount;
-import com.github.pavelvashkevich.bankmicroservice.model.Client;
+
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.Client;
+import com.github.pavelvashkevich.bankmicroservice.repository.postgres.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package com.github.pavelvashkevich.bankmicroservice.service.impl;
 
-import com.github.pavelvashkevich.bankmicroservice.model.AccountLimit;
-import com.github.pavelvashkevich.bankmicroservice.model.Client;
-import com.github.pavelvashkevich.bankmicroservice.repository.AccountLimitRepository;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
+import com.github.pavelvashkevich.bankmicroservice.model.postgres.Client;
+import com.github.pavelvashkevich.bankmicroservice.repository.postgres.AccountLimitRepository;
 import com.github.pavelvashkevich.bankmicroservice.service.AccountLimitService;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 import lombok.AllArgsConstructor;
