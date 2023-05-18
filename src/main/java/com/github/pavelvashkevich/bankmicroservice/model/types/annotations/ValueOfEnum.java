@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.model.types.annotations;
 
-import com.github.pavelvashkevich.bankmicroservice.validator.UniqueBankAccountValidator;
+import com.github.pavelvashkevich.bankmicroservice.validator.ValueOfEnumValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,15 +11,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = UniqueBankAccountValidator.class)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Constraint(validatedBy = ValueOfEnumValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueBankAccountNumber {
-    String message() default "The given bank account number is already in use";
+@Target({ElementType.FIELD, ElementType.METHOD})
+public @interface ValueOfEnum {
+
+    String message() default "Invalid {enumClass}";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    boolean value();
+    Class<? extends Enum<?>> enumClass();
 }

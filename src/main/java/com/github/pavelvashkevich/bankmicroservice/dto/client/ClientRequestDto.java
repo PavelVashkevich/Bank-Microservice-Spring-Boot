@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class ClientRequestDto {
     @Valid
     @NotNull
-    private BankAccountDto bankAccount;
+    private BankAccountClientDto bankAccount;
 }

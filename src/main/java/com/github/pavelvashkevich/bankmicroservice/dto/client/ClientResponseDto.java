@@ -10,5 +10,5 @@ import lombok.Setter;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ClientResponseDto {
     private Long id;
-    private BankAccountDto bankAccount;
+    private BankAccountClientDto bankAccount;
 }

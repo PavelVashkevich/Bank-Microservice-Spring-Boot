@@ -2,7 +2,7 @@ package com.github.pavelvashkevich.bankmicroservice.controller;
 
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
-import com.github.pavelvashkevich.bankmicroservice.exception.NotValidClientRequestException;
+import com.github.pavelvashkevich.bankmicroservice.exception.NotValidRequestException;
 import com.github.pavelvashkevich.bankmicroservice.service.impl.ClientServiceImpl;
 import com.github.pavelvashkevich.bankmicroservice.util.ValidationErrorResponseCreator;
 import lombok.AllArgsConstructor;
@@ -28,10 +28,11 @@ public class ClientController {
     private final ValidationErrorResponseCreator validationErrorResponseCreator;
 
     @PostMapping
-    public ResponseEntity<ClientResponseDto> addNewClient(@Valid @RequestBody ClientRequestDto clientRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<ClientResponseDto> addNewClient(@Valid @RequestBody ClientRequestDto clientRequestDto,
+                                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String response = validationErrorResponseCreator.createResponse(bindingResult);
-            throw new NotValidClientRequestException(response);
+            throw new NotValidRequestException(response);
         }
         ClientResponseDto clientResponseDto = clientService.save(clientRequestDto);
         return ResponseEntity.created(URI.create("/api/v1/clients/" + clientResponseDto.getId())).build();

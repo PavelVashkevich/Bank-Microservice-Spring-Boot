@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.service;
 
-import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountClientDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.exception.NoDataFoundException;
@@ -64,7 +64,7 @@ public class ClientServiceTest {
     @DisplayName("Junit Test for save Method of Client Service")
     @Test
     public void givenRequestDtoObject_whenSavedClient_thenReturnClientResponseObject() {
-        BankAccountDto bankAccountDto = createBankAccountDto();
+        BankAccountClientDto bankAccountDto = createBankAccountDto();
         ClientRequestDto clientRequestDto = createClientRequestDto(bankAccountDto);
         ClientResponseDto clientResponseDto = createClientResponseDto(bankAccountDto);
 
@@ -81,7 +81,7 @@ public class ClientServiceTest {
     @DisplayName("Junit Test for getClient Method of Client Service")
     @Test
     public void givenClientId_whenGetClient_thenReturnResponseDto() {
-        BankAccountDto bankAccountDto = createBankAccountDto();
+        BankAccountClientDto bankAccountDto = createBankAccountDto();
         ClientResponseDto clientResponseDto = createClientResponseDto(bankAccountDto);
 
         given(clientRepository.findById(TEST_ID)).willReturn(Optional.of(client));
@@ -138,7 +138,7 @@ public class ClientServiceTest {
         verify(clientRepository, times(EXPECTED_NUM_OF_DELETE_BY_ID_INV)).deleteById(TEST_ID);
     }
 
-    private ClientRequestDto createClientRequestDto(BankAccountDto bankAccountDto) {
+    private ClientRequestDto createClientRequestDto(BankAccountClientDto bankAccountDto) {
         ClientRequestDto clientRequestDto = new ClientRequestDto();
         bankAccountDto.setAccountNumber(TEST_BANK_ACCOUNT_NUM);
         clientRequestDto.setBankAccount(bankAccountDto);
@@ -151,13 +151,13 @@ public class ClientServiceTest {
         return bankAccount;
     }
 
-    private BankAccountDto createBankAccountDto() {
-        BankAccountDto bankAccountDto = new BankAccountDto();
+    private BankAccountClientDto createBankAccountDto() {
+        BankAccountClientDto bankAccountDto = new BankAccountClientDto();
         bankAccountDto.setAccountNumber(ClientServiceTest.TEST_BANK_ACCOUNT_NUM);
         return bankAccountDto;
     }
 
-    private ClientResponseDto createClientResponseDto(BankAccountDto bankAccountDto) {
+    private ClientResponseDto createClientResponseDto(BankAccountClientDto bankAccountDto) {
         ClientResponseDto clientResponseDto = new ClientResponseDto();
         clientResponseDto.setId(TEST_ID);
         clientResponseDto.setBankAccount(bankAccountDto);

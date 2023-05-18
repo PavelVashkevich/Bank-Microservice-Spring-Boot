@@ -1,29 +1,30 @@
 package com.github.pavelvashkevich.bankmicroservice.validator;
 
 
-import com.github.pavelvashkevich.bankmicroservice.repository.postgres.BankAccountRepository;
 import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.UniqueBankAccountNumber;
+import com.github.pavelvashkevich.bankmicroservice.service.BankAccountService;
+import lombok.AllArgsConstructor;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
+@AllArgsConstructor
 public class UniqueBankAccountValidator implements ConstraintValidator<UniqueBankAccountNumber, Long> {
-    private final BankAccountRepository bankAccountRepository;
+    private final BankAccountService bankAccountService;
 
-    public UniqueBankAccountValidator(BankAccountRepository bankAccountRepository) {
-        this.bankAccountRepository = bankAccountRepository;
+    private boolean value;
+
+    @Override
+    public void initialize(UniqueBankAccountNumber annotation) {
+        value = annotation.value();
     }
 
     @Override
-    public boolean isValid(Long value, ConstraintValidatorContext context) {
-        if (Objects.isNull(value)) {
+    public boolean isValid(Long accountNumber, ConstraintValidatorContext context) {
+        if (Objects.isNull(accountNumber)) {
             return true;
         }
-        return !isBankAccountWithNumberExist(value);
-    }
-
-    private boolean isBankAccountWithNumberExist(long accountNumber) {
-        return (bankAccountRepository.findByAccountNumber(accountNumber).isPresent());
+        return value != bankAccountService.isBankAccountWithNumberExist(accountNumber);
     }
 }
