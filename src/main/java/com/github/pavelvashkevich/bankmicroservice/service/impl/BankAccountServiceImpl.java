@@ -17,7 +17,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     private final BankAccountRepository bankAccountRepository;
 
     @Override
-    public BankAccount findByAccountNumber(int accountNumber) {
+    public BankAccount findByAccountNumber(long accountNumber) {
         return bankAccountRepository.findByAccountNumber(accountNumber).orElseThrow(
                 () -> new NoDataFoundException(String.format(NO_ACCOUNT_NUM_MSG, accountNumber)));
     }

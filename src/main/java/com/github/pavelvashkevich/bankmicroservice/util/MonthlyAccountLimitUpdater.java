@@ -25,6 +25,9 @@ public class MonthlyAccountLimitUpdater {
     @Value("${limitUpdater.batchSize}")
     private Integer batchSize;
 
+    // TODO Wrong implementation
+    // If we take into account that client can set many limits every day method will return all limits set by client
+
     @Scheduled(cron = "${limitUpdater.defaultLimit.cronExpression}")
     public void addDefaultLimitForNewMonth() {
         List<AccountLimit> limitsSetMonthBefore = getLimitsSetMonthBefore();

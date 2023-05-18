@@ -2,6 +2,8 @@ package com.github.pavelvashkevich.bankmicroservice.dto.limit;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.AccountNumberConstraint;
+import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.UniqueBankAccountNumber;
 import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.ValueOfEnum;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.Currency;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
@@ -17,9 +19,10 @@ import java.math.BigDecimal;
 @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AccountLimitAddRequestDto {
-    @Valid
     @NotNull
-    private BankAccountLimitDto bankAccount;
+    @UniqueBankAccountNumber(value = false, message = "Bank account number doesn't exist")
+    @AccountNumberConstraint(message = "Size of the account number must be 10 digits")
+    private Long accountNumber;
     @PositiveOrZero(message = "Sum must be equal of higher than 0")
     @NotNull
     private BigDecimal limitSum;

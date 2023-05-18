@@ -2,6 +2,8 @@ package com.github.pavelvashkevich.bankmicroservice.service;
 
 import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
 import com.github.pavelvashkevich.bankmicroservice.model.postgres.Client;
+import com.github.pavelvashkevich.bankmicroservice.dto.limit.AccountLimitAddRequestDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.limit.AccountLimitAddResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 
 import java.time.LocalDate;
@@ -10,7 +12,7 @@ import java.util.Optional;
 
 public interface AccountLimitService {
 
-    void save(AccountLimit limit);
+    AccountLimitAddResponseDto save(AccountLimitAddRequestDto limit);
 
     void update(AccountLimit limit);
 

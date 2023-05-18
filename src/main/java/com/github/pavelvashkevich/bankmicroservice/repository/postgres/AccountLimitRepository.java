@@ -11,6 +11,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Account Limit Repository interface defines operations to access and manipulate Account Limits.
+ *
+ * @author paulvashkevich@gmail.com
+ *
+ */
 @Repository
 public interface AccountLimitRepository extends JpaRepository<AccountLimit, Long> {
 

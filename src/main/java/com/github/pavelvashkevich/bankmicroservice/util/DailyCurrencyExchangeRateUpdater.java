@@ -31,7 +31,8 @@ public class DailyCurrencyExchangeRateUpdater {
     public void initFirstCurrencyExchangeValuesInDB() {
         List<CurrencyExchange> initCurrencyExchanges = Stream.of(Exchange.values()).map(exchange -> {
             CurrencyExchange currencyExchange = new CurrencyExchange();
-            currencyExchange.setCurrencyExchangeKey(buildCurrencyExchangeKey(exchange, getTodayDate()));
+            currencyExchange.setCurrencyExchangeKey(currencyExchangeService
+                    .buildCurrencyExchangeKey(exchange, getTodayDate()));
             Optional<BigDecimal> rateOnClose = twelveApiUtil.getRateOnCloseForSpecificExchange(exchange);
             rateOnClose.ifPresentOrElse(currencyExchange::setRate, () ->
                     // TODO log.error; Failed to init first currency exchanges valued in DB; Remote API issue
@@ -51,7 +52,8 @@ public class DailyCurrencyExchangeRateUpdater {
     @Scheduled(cron = "${rateUpdater.rate.close.cronExpression}", zone = "${rateUpdater.rate.close.timezone}")
     public void updateCurrencyExchangeRateValueForNewDay() {
         List<CurrencyExchange> updatedCurrencyExchangesWithCloseRate = Stream.of(Exchange.values()).map(exchange -> {
-            CurrencyExchangeKey currencyExchangeKey = buildCurrencyExchangeKey(exchange, getTodayDate());
+            CurrencyExchangeKey currencyExchangeKey = currencyExchangeService
+                    .buildCurrencyExchangeKey(exchange, getTodayDate());
             CurrencyExchange currencyExchangeToUpdate = currencyExchangeService.findById(currencyExchangeKey);
             Optional<BigDecimal> rateOnClose = twelveApiUtil.getRateOnCloseForSpecificExchange(exchange);
             rateOnClose.ifPresent(currencyExchangeToUpdate::setRate);
@@ -63,25 +65,21 @@ public class DailyCurrencyExchangeRateUpdater {
     private CurrencyExchange createCurrencyExchangeWithRateOnPreviousClose(Exchange exchange) {
         CurrencyExchange previousDayCurrencyExchange = getPreviousDayCurrencyExchange(exchange);
         CurrencyExchange newDayCurrencyExchange = new CurrencyExchange();
-        newDayCurrencyExchange.setCurrencyExchangeKey(buildCurrencyExchangeKey(exchange, getTodayDate()));
+        newDayCurrencyExchange.setCurrencyExchangeKey(currencyExchangeService
+                .buildCurrencyExchangeKey(exchange, getTodayDate()));
         newDayCurrencyExchange.setRate(previousDayCurrencyExchange.getRate());
         return newDayCurrencyExchange;
     }
 
     private CurrencyExchange getPreviousDayCurrencyExchange(Exchange exchange) {
-        CurrencyExchangeKey currencyExchangeKey = buildCurrencyExchangeKey(exchange, getYesterdayDate());
+        LocalDate yesterdayDate = LocalDate.now().minusDays(ONE_DAY);
+        CurrencyExchangeKey currencyExchangeKey = currencyExchangeService
+                .buildCurrencyExchangeKey(exchange, yesterdayDate);
         return currencyExchangeService.findById(currencyExchangeKey);
-    }
-
-    private CurrencyExchangeKey buildCurrencyExchangeKey(Exchange exchange, LocalDate date) {
-        return CurrencyExchangeKey.builder().symbol(exchange.getSymbol()).exchangeDate(date).build();
     }
 
     private LocalDate getTodayDate() {
         return LocalDate.now();
     }
 
-    private LocalDate getYesterdayDate() {
-        return LocalDate.now().minusDays(ONE_DAY);
-    }
 }
