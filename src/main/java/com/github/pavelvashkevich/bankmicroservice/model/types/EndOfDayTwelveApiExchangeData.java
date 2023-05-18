@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
-public class EndOfDayTwelveApiData {
+public class EndOfDayTwelveApiExchangeData {
     private String symbol;
     private String exchange;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
