@@ -1,7 +1,7 @@
 package com.github.pavelvashkevich.bankmicroservice.integration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountClientDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
@@ -197,19 +197,19 @@ public class ClientControllerITest extends AbstractBaseITest {
         return bankAccount;
     }
 
-    private BankAccountDto createBankAccountDto(Long accountNumber) {
-        BankAccountDto bankAccountDto = new BankAccountDto();
+    private BankAccountClientDto createBankAccountDto(Long accountNumber) {
+        BankAccountClientDto bankAccountDto = new BankAccountClientDto();
         bankAccountDto.setAccountNumber(accountNumber);
         return bankAccountDto;
     }
 
-    private ClientRequestDto createClientRequestDto(BankAccountDto bankAccountDto) {
+    private ClientRequestDto createClientRequestDto(BankAccountClientDto bankAccountDto) {
         ClientRequestDto clientRequestDto = new ClientRequestDto();
         clientRequestDto.setBankAccount(bankAccountDto);
         return clientRequestDto;
     }
 
-    private ClientResponseDto createClientResponseDto(Long clientId, BankAccountDto bankAccountDto) {
+    private ClientResponseDto createClientResponseDto(Long clientId, BankAccountClientDto bankAccountDto) {
         ClientResponseDto clientResponseDto = new ClientResponseDto();
         clientResponseDto.setId(clientId);
         clientResponseDto.setBankAccount(bankAccountDto);
@@ -217,13 +217,13 @@ public class ClientControllerITest extends AbstractBaseITest {
     }
 
     private String createClientPostRequestContent(Long accountNumber) throws JsonProcessingException {
-        BankAccountDto bankAccountDto = createBankAccountDto(accountNumber);
+        BankAccountClientDto bankAccountDto = createBankAccountDto(accountNumber);
         ClientRequestDto clientRequestDto = createClientRequestDto(bankAccountDto);
         return objectMapper.writeValueAsString(clientRequestDto);
     }
 
     private String createClientResponseExpectedContent(Long clientId, Long accountNumber) throws JsonProcessingException {
-        BankAccountDto bankAccountDto = createBankAccountDto(accountNumber);
+        BankAccountClientDto bankAccountDto = createBankAccountDto(accountNumber);
         ClientResponseDto clientResponseDto = createClientResponseDto(clientId, bankAccountDto);
         return objectMapper.writeValueAsString(clientResponseDto);
     }

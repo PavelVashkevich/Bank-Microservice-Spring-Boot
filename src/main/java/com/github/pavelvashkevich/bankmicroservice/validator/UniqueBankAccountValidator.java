@@ -4,12 +4,13 @@ package com.github.pavelvashkevich.bankmicroservice.validator;
 import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.UniqueBankAccountNumber;
 import com.github.pavelvashkevich.bankmicroservice.service.BankAccountService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UniqueBankAccountValidator implements ConstraintValidator<UniqueBankAccountNumber, Long> {
     private final BankAccountService bankAccountService;
 
