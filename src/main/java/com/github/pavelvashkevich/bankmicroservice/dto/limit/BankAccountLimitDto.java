@@ -1,4 +1,4 @@
-package com.github.pavelvashkevich.bankmicroservice.dto.client;
+package com.github.pavelvashkevich.bankmicroservice.dto.limit;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class BankAccountDto {
+public class BankAccountLimitDto {
     @NotNull
-    @UniqueBankAccountNumber
+    @UniqueBankAccountNumber(value = false)
     @AccountNumberConstraint(message = "Size of the account number must be 10 digits")
     private Long accountNumber;
 }

@@ -1,6 +1,6 @@
 package com.github.pavelvashkevich.bankmicroservice.mapper;
 
-import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountDto;
+import com.github.pavelvashkevich.bankmicroservice.dto.client.BankAccountClientDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientRequestDto;
 import com.github.pavelvashkevich.bankmicroservice.dto.client.ClientResponseDto;
 import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
@@ -24,7 +24,7 @@ public class ClientModelMapper {
 
     public ClientResponseDto mapClientToResponseDto(Client client) {
         ClientResponseDto clientResponseDto = modelMapper.map(client, ClientResponseDto.class);
-        BankAccountDto bankAccountDto = modelMapper.map(client.getBankAccount(), BankAccountDto.class);
+        BankAccountClientDto bankAccountDto = modelMapper.map(client.getBankAccount(), BankAccountClientDto.class);
         clientResponseDto.setBankAccount(bankAccountDto);
         return clientResponseDto;
     }

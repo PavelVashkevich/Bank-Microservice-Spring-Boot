@@ -21,4 +21,9 @@ public class BankAccountServiceImpl implements BankAccountService {
         return bankAccountRepository.findByAccountNumber(accountNumber).orElseThrow(
                 () -> new NoDataFoundException(String.format(NO_ACCOUNT_NUM_MSG, accountNumber)));
     }
+
+    @Override
+    public boolean isBankAccountWithNumberExist(long accountNumber) {
+        return (bankAccountRepository.findByAccountNumber(accountNumber).isPresent());
+    }
 }
