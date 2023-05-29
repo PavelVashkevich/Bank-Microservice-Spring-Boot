@@ -1,6 +1,7 @@
 package com.github.pavelvashkevich.bankmicroservice.model.postgres;
 
 import com.github.pavelvashkevich.bankmicroservice.model.types.annotations.AccountNumberConstraint;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,15 +18,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     @AccountNumberConstraint
+    @EqualsAndHashCode.Include
     private Long accountNumber;
     @OneToOne
-    @JoinColumn(name = "client_id",referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
     @OneToMany(mappedBy = "bankAccount")
     private List<AccountLimit> accountLimits;

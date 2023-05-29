@@ -7,20 +7,27 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 @RequiredArgsConstructor
 public class AccountLimitModelMapper {
     private final ModelMapper modelMapper;
 
     public AccountLimitAddResponseDto mapAccountLimitToAddResponseDto(AccountLimit accountLimit) {
-        TypeMap<AccountLimit, AccountLimitAddResponseDto> propertyMapper =
-                this.modelMapper.createTypeMap(AccountLimit.class, AccountLimitAddResponseDto.class);
-        propertyMapper.addMapping(AccountLimit::getSum, AccountLimitAddResponseDto::setLimitSum);
-        propertyMapper.addMapping(AccountLimit::getDatetime, AccountLimitAddResponseDto::setLimitDatetime);
-        propertyMapper.addMapping(AccountLimit::getCurrencyShortname, AccountLimitAddResponseDto::setLimitCurrencyShortname);
-
         return this.modelMapper.map(accountLimit, AccountLimitAddResponseDto.class);
+    }
 
+    @PostConstruct
+    private void initAccountLimitTypeMap() {
+        TypeMap<AccountLimit, AccountLimitAddResponseDto> propertyMapAccountLimitToAccountLimitAddResponseDto =
+                this.modelMapper.createTypeMap(AccountLimit.class, AccountLimitAddResponseDto.class);
+        propertyMapAccountLimitToAccountLimitAddResponseDto
+                .addMapping(AccountLimit::getSum, AccountLimitAddResponseDto::setLimitSum);
+        propertyMapAccountLimitToAccountLimitAddResponseDto
+                .addMapping(AccountLimit::getDatetime, AccountLimitAddResponseDto::setLimitDatetime);
+        propertyMapAccountLimitToAccountLimitAddResponseDto
+                .addMapping(AccountLimit::getCurrencyShortname, AccountLimitAddResponseDto::setLimitCurrencyShortname);
     }
 
 }
