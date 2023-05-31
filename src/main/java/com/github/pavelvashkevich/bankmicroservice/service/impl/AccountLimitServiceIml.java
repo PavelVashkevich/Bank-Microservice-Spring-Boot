@@ -1,17 +1,14 @@
 package com.github.pavelvashkevich.bankmicroservice.service.impl;
 
 import com.github.pavelvashkevich.bankmicroservice.model.postgres.AccountLimit;
-import com.github.pavelvashkevich.bankmicroservice.model.postgres.Client;
 import com.github.pavelvashkevich.bankmicroservice.repository.postgres.AccountLimitRepository;
 import com.github.pavelvashkevich.bankmicroservice.service.AccountLimitService;
-import com.github.pavelvashkevich.bankmicroservice.model.types.enumerators.ExpenseCategory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,14 +29,8 @@ public class AccountLimitServiceIml implements AccountLimitService {
     }
 
     @Override
-    public Optional<AccountLimit> findLastByExpenseCategoryAndClient(ExpenseCategory expenseCategory, Client client) {
-        // TODO
-        return Optional.empty();
-    }
-
-    @Override
-    public List<AccountLimit> findByYearMonthDay(LocalDate date) {
-        return accountLimitRepository.findByYearMonthDay(date);
+    public List<AccountLimit> findByDate(LocalDate date) {
+        return accountLimitRepository.findByDate(date);
     }
 
     @Override

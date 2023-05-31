@@ -21,9 +21,13 @@ public abstract class AbstractBaseITest {
 
     @DynamicPropertySource
     public static void dynamicPropertySource(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.driver-class-name", POSTGRE_SQL_CONTAINER::getDriverClassName);
-        registry.add("spring.datasource.url", POSTGRE_SQL_CONTAINER::getJdbcUrl);
-        registry.add("spring.datasource.username", POSTGRE_SQL_CONTAINER::getUsername);
-        registry.add("spring.datasource.password", POSTGRE_SQL_CONTAINER::getPassword);
+        registry.add("spring.config.persistence.postgres.driverClassName",
+                POSTGRE_SQL_CONTAINER::getDriverClassName);
+        registry.add("spring.config.persistence.postgres.url",
+                POSTGRE_SQL_CONTAINER::getJdbcUrl);
+        registry.add("spring.config.persistence.postgres.username",
+                POSTGRE_SQL_CONTAINER::getUsername);
+        registry.add("spring.config.persistence.postgres.password",
+                POSTGRE_SQL_CONTAINER::getPassword);
     }
 }

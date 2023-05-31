@@ -1,6 +1,5 @@
 package com.github.pavelvashkevich.bankmicroservice.model.postgres;
 
-import com.github.pavelvashkevich.bankmicroservice.model.postgres.BankAccount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
